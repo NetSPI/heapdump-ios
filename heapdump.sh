@@ -1,5 +1,5 @@
 #!/bin/bash
-version=`gdb --version | head -n1 | grep -o -E "gdb\-[0-9]{4}" | cut -d"-" -f2`
+version=`gdb --version | head -n1 | grep -o -E "gdb\-[0-9]{4}" | awk -F'-' '{print $2}'`
 if [ "$version" == "" ]
 	then
 		version=0
@@ -14,7 +14,7 @@ if [ $version -ge 1708 ]
 		echo "info mach-regions" >> tmp.txt
 		gdb --pid="$PID" --batch --command=tmp.txt 2>/dev/null | grep sub-regions | awk '{print $3,$5}' | while read range; do
 			echo "mach-regions: $range"
-			cmd="dump binary memory dump`echo $range| cut -d' ' -f1`.dmp $range"
+			cmd="dump binary memory dump`echo $range| awk '{print $1}'`.dmp $range"
 			echo "$cmd" >> gdbcmd.txt
 		done
 		rm tmp.txt
