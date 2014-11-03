@@ -1,4 +1,4 @@
 heapdump-ios
 ============
 
-./heapdump.sh <binary>
+./heapdump.sh &lt;binary&gt;
