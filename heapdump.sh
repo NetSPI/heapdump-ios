@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ "$1" == "" ]
+	then
+		echo "Usage: ./$0 <binary_name>"
+		exit 1
+fi
 version=`gdb --version | head -n1 | grep -o -E "gdb\-[0-9]{4}" | awk -F'-' '{print $2}'`
 if [ "$version" == "" ]
 	then
